@@ -126,7 +126,9 @@ killproc () {
         return 3 # program is not running
     fi
 
-    rm -f "$pidfile"
+    if [ -z "$sig" ]; then
+        pidofproc -p $pidfile "$1" >/dev/null || rm -f "$pidfile"
+    fi
     return 0
 }
 
