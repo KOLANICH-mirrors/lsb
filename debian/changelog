@@ -1,18 +1,24 @@
-lsb (3.2-23) unstable; urgency=low
+lsb (4.0-0ubuntu1) karmic; urgency=low
 
-  * Fix tests for $TERM in log_use_fancy_output().  (Closes: #537112, #536190)
-  * Add libnss3-1d and libqt4-sql-sqlite to lsb-desktop dependencies.
-    (Closes: #534277, #534452)
-  * Properly trap open() failures in lsb_release.  (Closes: #521462)
-  * Ignore empty arguments in /etc/lsb-release.  (Closes: #485565)
-    May also fix #514041.
-  * Better test for existant but unreadable PID file.  (Closes: #527890)
-  * Add some punctuation to log_{warning,failure}_msg.  (Closes: #525684)
-  * lsb-core depends on cups-bsd | lpr, since it is more likely that
-    someone in 2009 will have CUPS installed already than want to use lpr
-    instead.  (Closes: #512098)
+  * Merge from Debian unstable, remaining changes:
+    - lsb-base-logging-ubuntu.sh: change log_{success,warning,failure}_msg()
+      to use usplash_write "TEXT" instead of "STATUS" to avoid unreadable
+      line-wrapping when using usplash in verbose mode.
+    - Don't conflict with python (>= 2.6).
+    - Depend on postfix rather than exim4 as preferred mail-transport-agent
+      alternative.
+    - Depend on libgl1-mesa-glx rather than libgl1-mesa as preferred libgl1
+      alternative.
+    - Since /etc/lsb-release overrides detected information, there's no
+      need to try and detect that information if lsb-release contains
+      everything we need.  This saves us calling the hugely expensive
+      apt-cache.
+    - Add Ubuntu logging functions.
 
- -- Chris Lawrence <lawrencc@debian.org>  Tue, 21 Jul 2009 04:03:41 -0500
+  [ Jeff Licquia ]
+  * Upgrade to support LSB 4.0.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 02 Jun 2009 20:20:07 +0000
 
 lsb (3.2-22) unstable; urgency=low
 
@@ -1364,3 +1370,4 @@ lsb (1.1.0-1) unstable; urgency=low
   * Initial Release.  (Closes: #134658)
 
  -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Feb 2002 14:07:32 -0600
+
