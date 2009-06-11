@@ -165,7 +165,7 @@ Description: Linux Standard Base 4.0 Multimedia package
 
 Package: lsb-printing
 Architecture: any
-Depends: lsb-core (>= 4.0), libcups2, libcupsimage2, foomatic-filters, ghostscript, ${misc:Depends}
+Depends: lsb-core (>= 4.0), libcups2, libcupsimage2, foomatic-filters, ghostscript, ghostscript-cups, ${misc:Depends}
 Provides: lsb-printing-noarch, ${provides}
 Description: Linux Standard Base 4.0 Printing package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard

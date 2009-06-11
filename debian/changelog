@@ -1,3 +1,9 @@
+lsb (4.0-0ubuntu2) karmic; urgency=low
+
+  * debian/control: Added ghostscript-cups dependency (LP: #385606).
+
+ -- Till Kamppeter <till.kamppeter@gmail.com>  Thu, 11 Jun 2009 23:43:49 +0200
+
 lsb (4.0-0ubuntu1) karmic; urgency=low
 
   * Merge from Debian unstable, remaining changes:
