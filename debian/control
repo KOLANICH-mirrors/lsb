@@ -3,9 +3,9 @@ Section: misc
 Priority: extra
 Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Chris Lawrence <lawrencc@debian.org>
-Build-Depends: debhelper (>> 7), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-support, python-all-dev
+Build-Depends: debhelper (>> 7), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-central, python-all-dev
 Standards-Version: 3.8.1
-XS-Python-Version: current
+XS-Python-Version: all
 Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core

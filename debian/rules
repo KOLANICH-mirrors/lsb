@@ -85,7 +85,7 @@ install: build
 	cp -p init-functions debian/lsb-base/lib/lsb
 	cp -p lsb-base-logging-ubuntu.sh debian/lsb-base/etc/lsb-base-logging.sh
 	cp -p lsb_release debian/lsb-release/usr/bin
-	cp -p lsb_release.py debian/lsb-release/usr/share/python-support/lsb-release
+	cp -p lsb_release.py debian/lsb-release/usr/share/pyshared/
 	cp -p debian/lsb-release.bugscript debian/lsb-release/usr/share/bug/lsb-release
 
 # Build architecture-independent files here.
@@ -110,7 +110,7 @@ binary-indep: build install
 	dh_fixperms -i
 #	dh_makeshlibs
 #	dh_perl
-	dh_pysupport -i
+	DH_PYCENTRAL=include-links dh_pycentral -i
 #	dh_python
 	dh_installdeb -i
 	dh_shlibdeps -i
@@ -151,7 +151,7 @@ binary-arch: build install
 	dh_strip -a
 	dh_compress -a
 	dh_fixperms -a
-	dh_pysupport -a
+	DH_PYCENTRAL=include-links dh_pycentral -a
 #	dh_makeshlibs
 	dh_installdeb -a
 #	dh_perl
