@@ -1,3 +1,12 @@
+lsb (4.0-0ubuntu4) karmic; urgency=low
+
+  * Merge 3.2-23 from Debian, fixing TERM handling in log_use_fancy_output
+    (LP: #418461).
+  * Use dpkg --print-architecture rather than
+    --print-installation-architecture (LP: #403316).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 10 Sep 2009 12:42:03 +0100
+
 lsb (4.0-0ubuntu3) karmic; urgency=low
 
   * rebuild using python-central and DH_PYCENTRAL=include-links
@@ -37,6 +46,22 @@ lsb (4.0-0ubuntu1) karmic; urgency=low
   * Upgrade to support LSB 4.0.
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 02 Jun 2009 20:20:07 +0000
+
+lsb (3.2-23) unstable; urgency=low
+
+  * Fix tests for $TERM in log_use_fancy_output().  (Closes: #537112, #536190)
+  * Add libnss3-1d and libqt4-sql-sqlite to lsb-desktop dependencies.
+    (Closes: #534277, #534452)
+  * Properly trap open() failures in lsb_release.  (Closes: #521462)
+  * Ignore empty arguments in /etc/lsb-release.  (Closes: #485565)
+    May also fix #514041.
+  * Better test for existant but unreadable PID file.  (Closes: #527890)
+  * Add some punctuation to log_{warning,failure}_msg.  (Closes: #525684)
+  * lsb-core depends on cups-bsd | lpr, since it is more likely that
+    someone in 2009 will have CUPS installed already than want to use lpr
+    instead.  (Closes: #512098)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Tue, 21 Jul 2009 04:03:41 -0500
 
 lsb (3.2-22) unstable; urgency=low
 
