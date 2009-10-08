@@ -19,7 +19,7 @@ log_to_console () {
     func=$1
     shift
 
-    loop=y $func "$@" </dev/console >/dev/console 2>&1 || true
+    loop=y $func "$@" <${CONSOLE:-/dev/console} >${CONSOLE:-/dev/console} 2>&1 || true
 }
 
 log_success_msg () {

@@ -1,3 +1,10 @@
+lsb (4.0-0ubuntu5) karmic; urgency=low
+
+  * lsb-base-logging-ubuntu.sh: Honour CONSOLE environment variable and use
+    it for output instead of /dev/console if it's set (LP: #440871).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 08 Oct 2009 19:53:53 +0100
+
 lsb (4.0-0ubuntu4) karmic; urgency=low
 
   * Merge 3.2-23 from Debian, fixing TERM handling in log_use_fancy_output
