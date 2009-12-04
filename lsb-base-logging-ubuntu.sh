@@ -8,26 +8,10 @@ log_use_usplash () {
     type usplash_write >/dev/null 2>&1
 }
 
-log_to_console () {
-    [ "${loop:-n}" != y ] || return 0
-    [ "${QUIET:-no}" != yes ] || return 0
-
-    # Only output to the console when we're given /dev/null
-    stdin=`readlink /proc/self/fd/0`
-    [ "${stdin#/dev/null}" != "$stdin" ] || return 0
-
-    func=$1
-    shift
-
-    loop=y $func "$@" <${CONSOLE:-/dev/console} >${CONSOLE:-/dev/console} 2>&1 || true
-}
-
 log_success_msg () {
     if log_use_usplash; then
         usplash_write "TEXT   $*" || true
     fi
-
-    log_to_console log_success_msg "$@"
 
     echo " * $@"
 }
@@ -36,8 +20,6 @@ log_failure_msg () {
     if log_use_usplash; then
         usplash_write "TEXT   $*" || true
     fi
-
-    log_to_console log_failure_msg "$@"
 
     if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
@@ -52,8 +34,6 @@ log_warning_msg () {
     if log_use_usplash; then
         usplash_write "TEXT   $*" || true
     fi
-
-    log_to_console log_warning_msg "$@"
 
     if log_use_fancy_output; then
         YELLOW=`$TPUT setaf 3`
@@ -76,8 +56,6 @@ log_daemon_msg () {
     if log_use_usplash; then
         usplash_write "TEXT $*" || true
     fi
-
-    log_to_console log_daemon_msg "$@"
 
     if log_use_fancy_output && $TPUT xenl >/dev/null 2>&1; then
         COLS=`$TPUT cols`
@@ -127,8 +105,6 @@ log_end_msg () {
         fi
     fi
 
-    log_to_console log_end_msg "$@"
-
     if [ "$COL" ] && [ -x "$TPUT" ]; then
         printf "\r"
         $TPUT hpa $COL
@@ -155,8 +131,6 @@ log_action_msg () {
     if log_use_usplash; then
         usplash_write "TEXT $*" || true
     fi
-
-    log_to_console log_action_msg "$@"
 
     echo " * $@"
 }
