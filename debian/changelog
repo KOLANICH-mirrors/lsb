@@ -1,3 +1,11 @@
+lsb (4.0-0ubuntu7) lucid; urgency=low
+
+  * Remove /usr/lib/pymodules/python2.6/lsb_release.py on upgrades; this might
+    have stayed behind due to using python-support in intermediate karmic
+    development versions; LP: #418017.
+
+ -- Loïc Minier <loic.minier@ubuntu.com>  Fri, 18 Dec 2009 15:34:25 +0100
+
 lsb (4.0-0ubuntu6) lucid; urgency=low
 
   * lsb-base-logging-ubuntu.sh: Remove the log_to_console madness, it doesn't
