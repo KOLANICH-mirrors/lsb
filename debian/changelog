@@ -1,3 +1,18 @@
+lsb (4.0-0ubuntu8) lucid; urgency=low
+
+  * sendmail, debian/control, debian/rules, debian/lsb-invalid-mta.dirs:
+    Added new binary package "lsb-invalid-mta" containing a fake
+    /usr/sbin/sendmail so that the installation of LSB packages does not
+    pull in an MTA any more, which once adds awkward configuration questions
+    to the installation process and second adds an often unnneeded daemon to
+    the system (LP: #141641).
+
+  * debian/control: The LSB requires the printing environment already
+    since version 3.2. Made lsb-printing required by the "lsb" package
+    not only suggested (LP: #386128).
+
+ -- Till Kamppeter <till.kamppeter@gmail.com>  Mon, 22 Feb 2010 23:50:49 +0100
+
 lsb (4.0-0ubuntu7) lucid; urgency=low
 
   * Remove /usr/lib/pymodules/python2.6/lsb_release.py on upgrades; this might

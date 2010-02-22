@@ -87,6 +87,7 @@ install: build
 	cp -p lsb_release debian/lsb-release/usr/bin
 	cp -p lsb_release.py debian/lsb-release/usr/share/pyshared/
 	cp -p debian/lsb-release.bugscript debian/lsb-release/usr/share/bug/lsb-release
+	cp -p sendmail debian/lsb-invalid-mta/usr/sbin
 
 # Build architecture-independent files here.
 binary-indep: build install
