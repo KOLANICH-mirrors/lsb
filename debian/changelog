@@ -1,3 +1,9 @@
+lsb (4.0-0ubuntu9) natty; urgency=low
+
+  * Rebuild to add support for python 2.7.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 03 Dec 2010 00:04:26 +0000
+
 lsb (4.0-0ubuntu8) lucid; urgency=low
 
   * sendmail, debian/control, debian/rules, debian/lsb-invalid-mta.dirs:
