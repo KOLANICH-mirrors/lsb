@@ -1,3 +1,9 @@
+lsb (3.2-23.2squeeze1) testing-proposed-updates; urgency=high
+
+  * Add Debian 6.0 codename (squeeze) to lsb_release.py.  (Closes: #609325)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 10 Jan 2011 20:39:12 -0600
+
 lsb (3.2-23.1) unstable; urgency=low
 
   * Non-maintainer upload.

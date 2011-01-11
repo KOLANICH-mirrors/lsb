@@ -36,6 +36,7 @@ RELEASE_CODENAME_LOOKUP = {
     '3.1' : 'sarge',
     '4.0' : 'etch',
     '5.0' : 'lenny',
+    '6.0' : 'squeeze',
     }
 
 TESTING_CODENAME = 'unknown.new.testing'
