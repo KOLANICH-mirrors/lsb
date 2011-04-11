@@ -1,3 +1,11 @@
+lsb (4.0-0ubuntu10) natty; urgency=low
+
+  * Make lsb-base-logging-ubuntu.sh plymouth-aware (LP: #752393)
+    When booting with plymouth running, log_daemon_msg now stores its output
+    in a variable until log_end_msg is called. Avoid buffering issue.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 11 Apr 2011 14:05:55 -0400
+
 lsb (4.0-0ubuntu9) natty; urgency=low
 
   * Rebuild to add support for python 2.7.

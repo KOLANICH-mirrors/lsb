@@ -1,26 +1,18 @@
 # Default init script logging functions suitable for Ubuntu.
 # See /lib/lsb/init-functions for usage help.
 
-log_use_usplash () {
+log_use_plymouth () {
     if [ "${loop:-n}" = y ]; then
         return 1
     fi
-    type usplash_write >/dev/null 2>&1
+    plymouth --ping >/dev/null 2>&1
 }
 
 log_success_msg () {
-    if log_use_usplash; then
-        usplash_write "TEXT   $*" || true
-    fi
-
     echo " * $@"
 }
 
 log_failure_msg () {
-    if log_use_usplash; then
-        usplash_write "TEXT   $*" || true
-    fi
-
     if log_use_fancy_output; then
         RED=`$TPUT setaf 1`
         NORMAL=`$TPUT op`
@@ -31,10 +23,6 @@ log_failure_msg () {
 }
 
 log_warning_msg () {
-    if log_use_usplash; then
-        usplash_write "TEXT   $*" || true
-    fi
-
     if log_use_fancy_output; then
         YELLOW=`$TPUT setaf 3`
         NORMAL=`$TPUT op`
@@ -53,18 +41,24 @@ log_daemon_msg () {
         return 1
     fi
 
-    if log_use_usplash; then
-        usplash_write "TEXT $*" || true
-    fi
-
     if log_use_fancy_output && $TPUT xenl >/dev/null 2>&1; then
         COLS=`$TPUT cols`
         if [ "$COLS" ] && [ "$COLS" -gt 6 ]; then
             COL=`$EXPR $COLS - 7`
         else
-	    COLS=80
+            COLS=80
             COL=73
         fi
+
+        if log_use_plymouth; then
+            # If plymouth is running, don't output anything at this time
+            # to avoid buffering problems (LP: #752393)
+            if [ -z "$LOG_DAEMON_MSG" ]; then
+                LOG_DAEMON_MSG=$*
+                return
+            fi
+        fi
+
         # We leave the cursor `hanging' about-to-wrap (see terminfo(5)
         # xenl, which is approximately right). That way if the script
         # prints anything then we will be on the next line and not
@@ -97,15 +91,16 @@ log_end_msg () {
         return 1
     fi
 
-    if log_use_usplash; then
-        if [ "$1" -eq 0 ]; then
-            usplash_write "SUCCESS OK" || true
-        else
-            usplash_write "FAILURE failed" || true
-        fi
-    fi
-
     if [ "$COL" ] && [ -x "$TPUT" ]; then
+        # If plymouth is running, print previously stored output
+        # to avoid buffering problems (LP: #752393)
+        if log_use_plymouth; then
+            if [ -n "$LOG_DAEMON_MSG" ]; then
+                log_daemon_msg $LOG_DAEMON_MSG
+                LOG_DAEMON_MSG=""
+            fi
+        fi
+
         printf "\r"
         $TPUT hpa $COL
         if [ "$1" -eq 0 ]; then
@@ -128,10 +123,6 @@ log_end_msg () {
 }
 
 log_action_msg () {
-    if log_use_usplash; then
-        usplash_write "TEXT $*" || true
-    fi
-
     echo " * $@"
 }
 
