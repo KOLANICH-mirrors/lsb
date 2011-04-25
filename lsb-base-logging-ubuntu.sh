@@ -1,5 +1,6 @@
 # Default init script logging functions suitable for Ubuntu.
 # See /lib/lsb/init-functions for usage help.
+LOG_DAEMON_MSG=""
 
 log_use_plymouth () {
     if [ "${loop:-n}" = y ]; then

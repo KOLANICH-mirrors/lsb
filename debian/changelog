@@ -1,3 +1,10 @@
+lsb (4.0-0ubuntu11) natty; urgency=low
+
+  * Make sure LOG_DAEMON_MSG is set to avoid init scripts crashing when
+    running with -u (LP: #770381)
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 25 Apr 2011 13:13:07 -0400
+
 lsb (4.0-0ubuntu10) natty; urgency=low
 
   * Make lsb-base-logging-ubuntu.sh plymouth-aware (LP: #752393)
