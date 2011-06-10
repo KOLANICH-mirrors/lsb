@@ -1,3 +1,11 @@
+lsb (4.0-0ubuntu12) oneiric; urgency=low
+
+  * switch from python-central to dh_python2
+  * add "python" manually as a dependency for lsb-core, this used
+    to get add by ${python:Depends} but its missing now
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 10 Jun 2011 13:41:04 +0200
+
 lsb (4.0-0ubuntu11) natty; urgency=low
 
   * Make sure LOG_DAEMON_MSG is set to avoid init scripts crashing when
