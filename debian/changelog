@@ -1,3 +1,17 @@
+lsb (4.0-0ubuntu14) oneiric; urgency=low
+
+  * Use $DPKG_MAINTSCRIPT_ARCH in the maintainer scripts to decide the correct
+    symlinks to set up, instead of going by the dpkg built-in architecture.
+  * Mark lsb-release Multi-Arch: foreign.
+  * Mark lsb-core as Multi-Arch: foreign.  This is *incorrect*, because a
+    given package needs the libraries of the corresponding architecture; but
+    the common case is i386+amd64, where an amd64 lsb-core actually does
+    guarantee that the i386 dependencies are satisfied via biarch, so we do
+    this so we can have things like googleearth installable instead of having
+    to worry about libncurses5 for oneiric.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 15 Aug 2011 18:43:56 -0700
+
 lsb (4.0-0ubuntu13) oneiric; urgency=low
 
   * Use python3 instead of python2.

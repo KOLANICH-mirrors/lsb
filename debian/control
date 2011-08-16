@@ -9,6 +9,7 @@ Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
 Architecture: any
+Multi-Arch: foreign
 Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, lsb-invalid-mta | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, cups-bsd | lpr, lprng | cups-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), python3, ${python3:Depends}, ${misc:Depends}, ${depends}, lsb-base, time
 Provides: lsb-core-noarch, ${provides}
 Conflicts: lsb (<< 2.0-2)
@@ -241,6 +242,7 @@ Description: Linux Standard Base 4.0 init script functionality
 
 Package: lsb-release
 Architecture: all
+Multi-Arch: foreign
 Depends: ${python3:Depends}, ${misc:Depends}
 Recommends: apt
 Suggests: lsb
