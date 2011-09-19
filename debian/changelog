@@ -1,3 +1,10 @@
+lsb (4.0-0ubuntu16) oneiric; urgency=low
+
+  * Cherry-pick from Debian 3.2-28 (LP: #837745):
+    - Fix symlinks for AMD64.  (Closes: #638450)
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Sep 2011 10:20:31 +0100
+
 lsb (4.0-0ubuntu15) oneiric; urgency=low
 
   * Use python (2.x) again for the scripts.
