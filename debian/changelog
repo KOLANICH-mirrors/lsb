@@ -1,3 +1,9 @@
+lsb (4.0-0ubuntu19) precise; urgency=low
+
+  * Mark lsb-base Multi-Arch: foreign (LP: #904013).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 19 Jan 2012 16:59:48 +0000
+
 lsb (4.0-0ubuntu18) precise; urgency=low
 
   * lsb_release.py: Ensure that files are closed promptly; Python 3.2 prints

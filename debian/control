@@ -227,6 +227,7 @@ Description: Linux Standard Base 4.0 support package
 
 Package: lsb-base
 Architecture: all
+Multi-Arch: foreign
 Depends: sed, ncurses-bin, ${misc:Depends}
 Replaces: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
 Conflicts: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
