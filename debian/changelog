@@ -1,3 +1,14 @@
+lsb (3.2-12ubuntu3) intrepid; urgency=low
+
+  * init-functions: 
+    - In pidofproc(), if the kill -0 fails, use ps to detect if
+      the proc is running.
+    - Revert status_of_proc() functionality *back* to using pidofproc() 
+      now that it can run as non-root (LP: #246735). 
+    - Add support for passing a -p $pidfile parameter.
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Wed, 09 Jul 2008 16:15:05 -0500
+
 lsb (3.2-12ubuntu2) intrepid; urgency=low
 
   * init-functions: Replace pidofproc() call in status_of_proc() with a

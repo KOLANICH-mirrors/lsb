@@ -81,6 +81,9 @@ pidofproc () {
             if $(kill -0 "${pid:-}" 2> /dev/null); then
                 echo "$pid"
                 return 0
+            elif ps "${pid:-}" >/dev/null 2>&1; then
+                echo "$pid"
+                return 0 # program is running, but not owned by this user
             else
                 return 1 # program is dead and /var/run pid file exists
             fi
@@ -148,22 +151,32 @@ killproc () {
 
 # Return LSB status
 status_of_proc () {
-    local daemon name status
+    local pidfile daemon name status
+
+    pidfile=
+    OPTIND=1
+    while getopts p: opt ; do
+        case "$opt" in
+            p)  pidfile="$OPTARG";;
+        esac
+    done
+    shift $(($OPTIND - 1))
+
+    if [ -n "$pidfile" ]; then
+        pidfile="-p $pidfile"
+    fi
     daemon="$1"
     name="$2"
+
     status="0"
-    if [ -x /bin/pidof ]; then
-        /bin/pidof -o %PPID "$daemon" >/dev/null || status="$?"
-        if [ "$status" = 0 ]; then
-            log_success_msg "$name is running."
-        else
-            log_failure_msg "$name is not running."
-        fi
+    pidofproc $pidfile $daemon >/dev/null || status="$?"
+    if [ "$status" = 0 ]; then
+        log_success_msg "$name is running."
+        return 0
     else
-        log_failure_msg "/bin/pidof not available."
-        status="1"
+        log_failure_msg "$name is not running."
+        return $status
     fi
-    return $status
 }
 
 log_use_fancy_output () {
