@@ -1,3 +1,53 @@
+lsb (3.2-20) unstable; urgency=low
+
+  * Revert change in 3.2-16 that broke killproc due to my misunderstanding
+    of the spec.  (Closes: #495587)
+  * pidofproc now also checks for /var/run/$base.pid if -p is not specified,
+    fixing conformance with the spec.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 18 Aug 2008 16:34:24 -0500
+
+lsb (3.2-19) unstable; urgency=low
+
+  * Return 0 in log_failure_msg too.
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 04 Aug 2008 20:29:54 -0500
+
+lsb (3.2-18) unstable; urgency=low
+
+  * Also fix case where stdout isn't color-capable.  (Closes: #493505, again)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 04 Aug 2008 02:31:03 -0500
+
+lsb (3.2-17) unstable; urgency=low
+
+  * log_{success,failure,warning}_msg suck, please don't use them for
+    Debian scripts.  Nonetheless, breakage fixed.  (Closes: #493505)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 03 Aug 2008 10:15:45 -0500
+
+lsb (3.2-16) unstable; urgency=low
+
+  * Add a bugscript to lsb-release to help figure out why people keep
+    getting very strange results.
+  * Lenny will be Debian 5.0, not Debian 4.1; fix accordingly.
+  * Improve output of lsb-specified logging functions; deal with
+    in-the-wild variations that omit messages.
+  * No longer use --retry in start-stop-daemon calls.  (Closes: #451529)
+  * Fix behavior of killproc and pidofproc when no pidfile is passed in.
+  * Call pidof with -x to include scripts that may be daemonized.
+  * Change dependencies *cupsys* -> *cups*.  (Closes: #490381)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 01 Aug 2008 16:39:43 -0500
+
+lsb (3.2-15) unstable; urgency=low
+
+  * Add Basque [eu] translation.  (Closes: #491005)
+  * Fix log_action_end_msg_pre function definition (_post was defined twice).
+    (Closes: #491087)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 16 Jul 2008 14:24:44 -0500
+
 lsb (3.2-14ubuntu2) intrepid; urgency=low
 
   * Backport from Debian:

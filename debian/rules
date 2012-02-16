@@ -85,6 +85,7 @@ install: build
 	cp -p init-functions debian/lsb-base/lib/lsb
 	cp -p lsb-base-logging-ubuntu.sh debian/lsb-base/etc/lsb-base-logging.sh
 	cp -p lsb_release debian/lsb-release/usr/bin
+	cp -p debian/lsb-release.bugscript debian/lsb-release/usr/share/bug/lsb-release
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -122,7 +123,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdebconf -a
 	dh_installdocs -a
-	dh_installexamples -a init-skeleton
+	dh_installexamples -a test/init-skeleton
 	dh_installmenu -a
 #	dh_installlogrotate
 #	dh_installemacsen
