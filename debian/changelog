@@ -1,3 +1,11 @@
+lsb (3.2-14ubuntu2) intrepid; urgency=low
+
+  * Backport from Debian:
+    - Fix log_action_end_msg_pre function definition (_post was defined
+      twice). (LP: #262680)
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 16 Sep 2008 13:44:44 +0100
+
 lsb (3.2-14ubuntu1) intrepid; urgency=low
 
   * Merge from debian unstable (LP: #249059), remaining changes:

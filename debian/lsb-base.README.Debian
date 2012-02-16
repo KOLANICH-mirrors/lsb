@@ -138,7 +138,7 @@ log_daemon_msg_pre
 log_daemon_msg_post
 log_end_msg_pre
 log_end_msg_post
-log_action_end_msg_post
+log_action_end_msg_pre
 log_action_end_msg_post
 
 Each function receives all of the arguments sent to the parent
