@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # lsb_release command for Debian
-# (C) 2005-07 Chris Lawrence <lawrencc@debian.org>
+# (C) 2005-08 Chris Lawrence <lawrencc@debian.org>
 
 #    This package is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@ RELEASE_CODENAME_LOOKUP = {
     '3.0' : 'woody',
     '3.1' : 'sarge',
     '4.0' : 'etch',
+    '4.1' : 'lenny',
     }
 
 TESTING_CODENAME = 'lenny'
@@ -70,10 +71,14 @@ def valid_lsb_versions(version, module):
             return ['3.1']
         elif module in ('printing', 'languages', 'multimedia'):
             return ['3.2']
+        elif module == 'cxx':
+            return ['3.0', '3.1', '3.2']
         else:
             return ['2.0', '3.0', '3.1', '3.2']
 
     return [version]
+
+import sets
 
 # This is Debian-specific at present
 def check_modules_installed():
@@ -82,7 +87,7 @@ def check_modules_installed():
     if not output:
         return []
 
-    modules = []
+    modules = sets.Set()
     for line in output.split(os.linesep):
         version, provides = line.split(' ', 1)
         version = version.split('-', 1)[0]
@@ -95,14 +100,16 @@ def check_modules_installed():
             # If no versioned provides...
             if mgroups.get('version'):
                 module = '%(module)s-%(version)s-%(arch)s' % mgroups
-                modules += [module]
+                modules.add(module)
             else:
                 module = mgroups['module']
                 for v in valid_lsb_versions(version, module):
                     mgroups['version'] = v
                     module = '%(module)s-%(version)s-%(arch)s' % mgroups
-                    modules += [module]
-                    
+                    modules.add(module)
+
+    modules = list(modules)
+    modules.sort()
     return modules
 
 longnames = {'v' : 'version', 'o': 'origin', 'a': 'suite',
@@ -136,48 +143,30 @@ def parse_apt_policy():
     return data
 
 def guess_release_from_apt(origin='Debian', component='main',
-                           ignoresuites=('experimental')):
+                           ignoresuites=('experimental'),
+                           label='Debian'):
     releases = parse_apt_policy()
 
     if not releases:
         return None
 
-    # We only care about the specified origin and component
+    # We only care about the specified origin, component, and label
     releases = [x for x in releases if (
         x[1].get('origin', '') == origin and
-        x[1].get('component', '') == component)]
+        x[1].get('component', '') == component and
+        x[1].get('label', '') == label)]
+
+    # Check again to make sure we didn't wipe out all of the releases
+    if not releases:
+        return None
     
     releases.sort()
     releases.reverse()
 
-    # If the user has multiple releases we should
-    # only return the 'newest'.
+    # We've sorted the list by descending priority, so the first entry should
+    # be the "main" release in use on the system
 
-    # Unstable is always the 'newest'
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') == 'unstable':
-            return rinfo
-    # After it goes testing
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') == 'testing':
-            return rinfo
-
-    # Finally, find the highest numeric value
-    highestrelease = 0
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') not in ignoresuites:
-            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
-            if version > highestrelease:
-                highestrelease = version
-
-    # And return it
-    for (pri, rinfo) in releases:
-        if rinfo.get('suite', '') not in ignoresuites:
-            version = RELEASE_CODENAME_LOOKUP.get(unknown, rinfo.get('suite',''))
-            if version == highestrelease:
-                return rinfo
-
-    return None
+    return releases[0][1]
 
 def guess_debian_release():
     distinfo = {'ID' : 'Debian'}
@@ -198,9 +187,10 @@ def guess_debian_release():
             # /etc/debian_version should be numeric
             codename = lookup_codename(release, 'n/a')
             distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
+        elif release.endswith('/sid'):
+            distinfo['RELEASE'] = 'testing/unstable'
         else:
             distinfo['RELEASE'] = release
-            distinfo['CODENAME'] = None
 
     # Only use apt information if we did not get the proper information
     # from /etc/debian_version or if we don't have a codename
@@ -211,7 +201,7 @@ def guess_debian_release():
     # has an entry in his /etc/apt/sources.list but has not actually
     # upgraded the system.
     rinfo = guess_release_from_apt()
-    if rinfo and not distinfo['CODENAME']:
+    if rinfo and not distinfo.get('CODENAME'):
         release = rinfo.get('version')
         if release:
             codename = lookup_codename(release, 'n/a')
@@ -224,9 +214,9 @@ def guess_debian_release():
                 codename = 'sid'
         distinfo.update({ 'RELEASE' : release, 'CODENAME' : codename })
 
-    if 'RELEASE' in distinfo:
+    if distinfo.get('RELEASE'):
         distinfo['DESCRIPTION'] += ' %(RELEASE)s' % distinfo
-    if 'CODENAME' in distinfo:
+    if distinfo.get('CODENAME'):
         distinfo['DESCRIPTION'] += ' (%(CODENAME)s)' % distinfo
 
     return distinfo

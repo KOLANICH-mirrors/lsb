@@ -1,3 +1,74 @@
+lsb (3.2-12) unstable; urgency=medium
+
+  * Fix reversed test in killproc().  (Closes: #478871)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 01 May 2008 10:08:49 -0500
+
+lsb (3.2-11) unstable; urgency=low
+
+  * Depend on gs | ghostscript to help with Python transition.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 26 Apr 2008 15:47:00 -0500
+
+lsb (3.2-10) unstable; urgency=low
+
+  * Fix typo in lsb_release.  (Closes: #476969)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 20 Apr 2008 09:28:20 -0500
+
+lsb (3.2-9) unstable; urgency=low
+
+  * Fix lsb_release detection when apt-cache policy identifies no Debian
+    sources.  (Closes: #476288)
+  * Only use fancy TTY output if TERM is set and FD 1 is a terminal.
+    (Closes: #470993)
+  * Do not use eval in start_daemon().  (Closes: #406059)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Thu, 17 Apr 2008 20:38:23 -0500
+
+lsb (3.2-8) unstable; urgency=medium
+
+  * Bump conflicts to python < 2.6.  (Closes: #475953)
+  * init-functions: In killproc(), return 0 if program is not running
+    (instead of 3).  (Closes: #475258)
+  * lsb_release: Due to popular demand, report pinned release rather than
+    "unstable" on systems with multiple releases in sources.list.
+    (Closes: #459257)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 14 Apr 2008 01:00:50 -0500
+
+lsb (3.2-7) unstable; urgency=low
+
+  * Remove libstdc++5 dependency on all architectures, since it's only
+    needed before LSB 3.0.
+  * Revoke provision of lsb-cxx < 3.0 according to lsb_release.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 05 Apr 2008 16:32:13 -0500
+
+lsb (3.2-6) unstable; urgency=low
+
+  * Kill old versions of /etc/lsb-release deader.  (Closes: #467219)
+  * Fix debian/rules:
+    + Change DEB_BUILD_ARCH_CPU -> DEB_HOST_ARCH_CPU
+      ("host" is what we're building for)
+    + Detect armel using DEB_HOST_GNU_CPU_TYPE=arm-linux-gnueabi
+  * Remove duplicate LSB modules from lsb_release -v output.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sun, 30 Mar 2008 17:36:18 -0500
+
+lsb (3.2-5) unstable; urgency=low
+
+  * Fix init-functions with set -e.  (Closes: #472794)
+    Patch from Matthias Klose.
+  * Downgrade optional LSB modules to suggestions from main "lsb" package
+    (core LSB dependency for LSB 1.x); remove obsolete lsb-qt4 from its
+    dependencies.
+  * lsb-desktop now provides lsb-qt4*, essentially making lsb-qt4 a dummy
+    package.
+  * lsb-cxx: Don't depend on libstdc++5 on armel.
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 26 Mar 2008 10:26:53 -0500
+
 lsb (3.2-4ubuntu1) hardy; urgency=low
 
   * Merge with Debian; remaining changes:
