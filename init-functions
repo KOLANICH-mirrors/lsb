@@ -15,17 +15,17 @@
 #   may be used to endorse or promote products derived from this software
 #   without specific prior written permission.
 #
-#THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
-#ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-#ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-#OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-#HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-#LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-#OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-#SUCH DAMAGE.
+#THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+#IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+#WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+#ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE
+#LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+#CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+#SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+#OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+#EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 start_daemon () {
     local force nice pidfile exec i
@@ -256,6 +256,7 @@ log_daemon_msg () {
     if [ -z "${1:-}" ]; then
         return 1
     fi
+    log_daemon_msg_pre "$@"
 
     if [ -z "${2:-}" ]; then
         echo -n "$1:"
@@ -263,6 +264,7 @@ log_daemon_msg () {
     fi
     
     echo -n "$1: $2"
+    log_daemon_msg_post "$@"
 }
 
 # #319739
@@ -294,6 +296,7 @@ log_end_msg () {
     if [ -z "${1:-}" ]; then
         return 1
     fi
+    log_end_msg_pre "$@"
 
     # Only do the fancy stuff if we have an appropriate terminal
     # and if /usr is already mounted
@@ -312,6 +315,7 @@ log_end_msg () {
             echo " failed!"
         fi
     fi
+    log_end_msg_post "$@"
     return $1
 }
 
@@ -328,6 +332,7 @@ log_action_cont_msg () {
 }
 
 log_action_end_msg () {
+    log_action_end_msg_pre "$@"
     if [ -z "${2:-}" ]; then
         end="."
     else
@@ -345,7 +350,16 @@ log_action_end_msg () {
             echo "failed${end}"
         fi
     fi
+    log_action_end_msg_post "$@"
 }
+
+# Hooks for /etc/lsb-base-logging.sh
+log_daemon_msg_pre () { :; }
+log_daemon_msg_post () { :; }
+log_end_msg_pre () { :; }
+log_end_msg_post () { :; }
+log_action_end_msg_post () { :; }
+log_action_end_msg_post () { :; }
 
 FANCYTTY=
 [ -e /etc/lsb-base-logging.sh ] && . /etc/lsb-base-logging.sh || true
