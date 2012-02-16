@@ -87,8 +87,8 @@ pidofproc () {
         fi
     fi
     if [ -x /bin/pidof -a ! "$specified" ]; then
-        /bin/pidof -o %PPID $1
-        status="$?"
+        status="0"
+        /bin/pidof -o %PPID $1 || status="$?"
         if [ "$status" = 1 ]; then
             return 3 # program is not running
         fi
@@ -137,13 +137,28 @@ killproc () {
         if [ -n "$sig" ]; then
             return 0
         fi
-        return 0 # program is not running
+        return 3 # program is not running
     fi
 
     if [ "$status" = 0 -a "$is_term_sig" = yes ]; then
         pidofproc -p $pidfile "$1" >/dev/null || rm -f "$pidfile"
     fi
     return 0
+}
+
+# Return LSB status
+status_of_proc () {
+    local daemon name status
+    daemon="$1"
+    name="$2"
+    status="0"
+    pidofproc $daemon >/dev/null || status="$?"
+    if [ "$status" = "0" ]; then
+        log_success_msg "$name is running."
+    else
+        log_failure_msg "$name is not running."
+    fi
+    return $status
 }
 
 log_use_fancy_output () {

@@ -1,3 +1,16 @@
+lsb (3.2-12ubuntu1) intrepid; urgency=low
+
+  * Merge from debian unstable, remaining changes:
+    - init-functions:
+      + Debian has a "return 0" that should be "return 3" per LSB spec
+      + Make pidof call "set -e safe", LP: #204594
+      + Add status_of_proc() function, LP: #203169
+    - debian/control:
+      + Remove python from conflicts
+      + Keep Ubuntu's Depends and Suggests
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Wed, 04 Jun 2008 13:18:56 -0500
+
 lsb (3.2-12) unstable; urgency=medium
 
   * Fix reversed test in killproc().  (Closes: #478871)
