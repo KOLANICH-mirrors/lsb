@@ -1,3 +1,11 @@
+lsb (3.2-20ubuntu3) jaunty; urgency=low
+
+  * lsb-base-logging-ubuntu.sh: change log_{success,warning,failure}_msg()
+    to use usplash_write "TEXT" instead of "STATUS" to avoid unreadable
+    line-wrapping when using usplash in verbose mode (LP: #291543).
+
+ -- Kees Cook <kees@ubuntu.com>  Sat, 07 Feb 2009 14:22:19 -0800
+
 lsb (3.2-20ubuntu2) jaunty; urgency=low
 
   * Since /etc/lsb-release overrides detected information, there's no
