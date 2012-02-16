@@ -1,3 +1,10 @@
+lsb (3.2-12ubuntu2) intrepid; urgency=low
+
+  * init-functions: Replace pidofproc() call in status_of_proc() with a
+    /bin/pidof call, to allow any user to query service status (LP: #246735).
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Tue, 08 Jul 2008 15:38:55 -0500
+
 lsb (3.2-12ubuntu1) intrepid; urgency=low
 
   * Merge from debian unstable, remaining changes:
