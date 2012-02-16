@@ -1,3 +1,19 @@
+lsb (3.2-14ubuntu1) intrepid; urgency=low
+
+  * Merge from debian unstable (LP: #249059), remaining changes:
+    - debian/control:
+      + Remove python from conflicts
+      + Keep Ubuntu's Depends and Suggests
+      + Update maintainer
+    - debian/rules:
+      + copy lsb-base-logging-ubuntu.sh
+    - lsb-base-logging-ubuntu.sh:
+      + logging functions suitable for Ubuntu
+  * Dropped changes
+    - Debian has accepted all of the status_of_proc() functionality
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Wed, 16 Jul 2008 08:56:28 -0500
+
 lsb (3.2-14) unstable; urgency=low
 
   * Update pidofproc(), status_of_proc() to sync with Ubuntu.

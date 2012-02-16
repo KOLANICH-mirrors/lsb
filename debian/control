@@ -1,7 +1,8 @@
 Source: lsb
 Section: misc
 Priority: extra
-Maintainer: Chris Lawrence <lawrencc@debian.org>
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Chris Lawrence <lawrencc@debian.org>
 Build-Depends: debhelper (>= 5.0.37.2), po-debconf (>= 0.5.0), dpkg-dev (>= 1.10), python-central (>= 0.5), python-all-dev
 Standards-Version: 3.8.0
 XS-Python-Version: current
@@ -9,9 +10,9 @@ Homepage: http://www.linux-foundation.org/en/LSB
 
 Package: lsb-core
 Architecture: any
-Depends: lsb-release, ${glibc}, libz1, libncurses5, libpam0g, exim4 | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
+Depends: lsb-release, ${glibc}, libz1, postfix | mail-transport-agent, at, bc, binutils, bsdmainutils, bsdutils, cpio, cron, ed, file, libc6-dev | libc-dev, locales, lpr, lprng | cupsys-client, m4, mailx | mailutils, make, man-db, mawk | gawk, ncurses-term, passwd, patch, pax, procps, psmisc, rsync, alien (>= 8.36), ${python:Depends}, ${misc:Depends}, ${depends}, lsb-base
 Provides: lsb-core-noarch, ${provides}
-Conflicts: python (>= 2.6), lsb (<< 2.0-2)
+Conflicts: lsb (<< 2.0-2)
 Replaces: lsb (<< 2.0-2)
 XB-Python-Version: ${python:Versions}
 Description: Linux Standard Base 3.2 core support package
@@ -33,7 +34,7 @@ Description: Linux Standard Base 3.2 core support package
 
 Package: lsb-graphics
 Architecture: any
-Depends: lsb-core, xlibmesa3-gl | libgl1, libx11-6 | xlibs, ${misc:Depends}
+Depends: lsb-core, libgl1-mesa-glx | libgl1, libx11-6 | xlibs, ${misc:Depends}
 Conflicts: libutahglx1
 Provides: lsb-graphics-noarch, ${provides}
 Description: Linux Standard Base 3.2 graphics support package
@@ -185,8 +186,8 @@ Description: Linux Standard Base 3.2 Printing package
 
 Package: lsb
 Architecture: all
-Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop
-Suggests: lsb-printing, lsb-multimedia, lsb-languages
+Depends: lsb-core, lsb-graphics, lsb-cxx, lsb-desktop, lsb-printing, lsb-multimedia, lsb-languages
+Suggests: lsb-qt4
 Description: Linux Standard Base 3.2 support package
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
@@ -206,7 +207,7 @@ Description: Linux Standard Base 3.2 support package
 
 Package: lsb-base
 Architecture: all
-Depends: sed, ncurses-bin
+Depends: sed, ncurses-bin, libncurses5, libpam0g
 Replaces: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
 Conflicts: lsb-core (<< 2.0-6), lsb (<< 2.0-6)
 Priority: required
