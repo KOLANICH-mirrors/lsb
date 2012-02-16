@@ -78,7 +78,11 @@ def valid_lsb_versions(version, module):
 
     return [version]
 
-import sets
+try:
+    set # introduced in 2.4
+except NameError:
+    import sets
+    set = sets.Set
 
 # This is Debian-specific at present
 def check_modules_installed():
@@ -87,7 +91,7 @@ def check_modules_installed():
     if not output:
         return []
 
-    modules = sets.Set()
+    modules = set()
     for line in output.split(os.linesep):
         version, provides = line.split(' ', 1)
         version = version.split('-', 1)[0]
