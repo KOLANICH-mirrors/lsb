@@ -1,3 +1,21 @@
+lsb (3.2-20ubuntu1) jaunty; urgency=low
+
+  * Resynchronise with Debian (cups dependency change fixes LP: #279345).
+    Remaining changes:
+    - Don't conflict with python (>= 2.6).
+    - Depend on postfix rather than exim4 as preferred mail-transport-agent
+      alternative.
+    - Depend on libgl1-mesa-glx rather than libgl1-mesa as preferred libgl1
+      alternative.
+    - Add Ubuntu logging functions.
+  * Revert some apparently unintentional dependency changes on the Ubuntu
+    side of the merge: move libncurses5 and libpam0g dependencies back from
+    lsb-base to lsb-core; set lsb's dependencies on lsb-printing,
+    lsb-multimedia, and lsb-languages back to suggestions; and remove lsb's
+    suggestion of lsb-qt4.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 02 Nov 2008 23:48:49 +0000
+
 lsb (3.2-20) unstable; urgency=low
 
   * Revert change in 3.2-16 that broke killproc due to my misunderstanding
@@ -1281,4 +1299,3 @@ lsb (1.1.0-1) unstable; urgency=low
   * Initial Release.  (Closes: #134658)
 
  -- Chris Lawrence <lawrencc@debian.org>  Sun, 17 Feb 2002 14:07:32 -0600
-
