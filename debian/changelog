@@ -1,3 +1,12 @@
+lsb (3.2-20ubuntu2) jaunty; urgency=low
+
+  * Since /etc/lsb-release overrides detected information, there's no
+    need to try and detect that information if lsb-release contains
+    everything we need.  This saves us calling the hugely expensive
+    apt-cache.   LP: #262050.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Thu, 15 Jan 2009 21:24:13 +0000
+
 lsb (3.2-20ubuntu1) jaunty; urgency=low
 
   * Resynchronise with Debian (cups dependency change fixes LP: #279345).
