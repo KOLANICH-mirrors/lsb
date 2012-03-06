@@ -94,12 +94,15 @@ install: build
 	cp -p debian/lsb-release.bugscript debian/lsb-release/usr/share/bug/lsb-release
 	cp -p sendmail debian/lsb-invalid-mta/usr/sbin
 
+ifeq (0,1)
 	$(twotothree) -n -w debian/lsb-base/lib/lsb
 	$(twotothree) -n -w debian/lsb-release/usr/bin/lsb_release
+endif
 	mkdir -p debian/lsb-release/usr/lib/python3/dist-packages
 	cp -p lsb_release.py debian/lsb-release/usr/lib/python3/dist-packages
 	$(twotothree) -n -w debian/lsb-release/usr/lib/python3/dist-packages
 
+ifeq (0,1)
 	: # make python scripts starting with '#!' executable
 	for i in `find debian/lsb-core/usr/lib/lsb debian/lsb-release/usr/bin debian/lsb-release/usr/share/python3/dist-packages -type f`; do \
 	  sed '1s,#!.*python[^ ]*\(.*\),#! /usr/bin/python3\1,' \
@@ -112,6 +115,7 @@ install: build
 	    echo "fixed interpreter: $$i"; \
 	  fi; \
 	done
+endif
 
 
 # Build architecture-independent files here.
