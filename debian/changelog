@@ -1,3 +1,12 @@
+lsb (4.1+Debian11ubuntu2) saucy; urgency=low
+
+  * Only run the tests under python3, correcting a build failure due to
+    mismatched test expectations.
+  * test/test_lsb_release.py: also, make lsb_release ignore dpkg origins
+    for the test, otherwise the test fails on Ubuntu.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sun, 19 May 2013 05:52:09 +0000
+
 lsb (4.1+Debian11ubuntu1) saucy; urgency=low
 
   * Merge from Debian unstable, remaining changes:
