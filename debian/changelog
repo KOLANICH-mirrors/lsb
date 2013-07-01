@@ -1,3 +1,13 @@
+lsb (4.1+Debian11ubuntu3) saucy; urgency=low
+
+  * Use open() rather than file() in initdutils.py, for Python 3
+    compatibility (see LP #1035136).
+  * Test fileob and strob against None in RFC822Parser.__init__ rather than
+    testing their truth value, to avoid a misleading error in the case of a
+    file with no LSB headers.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 01 Jul 2013 12:36:13 +0100
+
 lsb (4.1+Debian11ubuntu2) saucy; urgency=low
 
   * Only run the tests under python3, correcting a build failure due to

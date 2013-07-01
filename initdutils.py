@@ -11,7 +11,7 @@ class RFC822Parser(dict):
     __linere = re.compile(r'([^:]+):\s*(.*)$')
     
     def __init__(self, fileob=None, strob=None, startcol=0, basedict=None):
-        if not fileob and not strob:
+        if fileob is None and strob is None:
             raise ValueError('need a file or string')
         if not basedict:
             basedict = {}
@@ -58,7 +58,7 @@ def scan_initfile(initfile):
     headerlines = ''
     scanning = False
     
-    for line in file(initfile):
+    for line in open(initfile):
         line = line.rstrip()
         if beginre.match(line):
             scanning = True
@@ -99,7 +99,7 @@ def save_facilities(facilities):
             pass
         return
     
-    fh = file(FACILITIES, 'w')
+    fh = open(FACILITIES, 'w')
     for facility, entries in facilities.items():
         # Ignore system facilities
         if facility.startswith('$'): continue
@@ -125,7 +125,7 @@ def load_depends():
     depends = {}
 
     if os.path.exists(DEPENDS):
-        independs = RFC822Parser(fileob=file(DEPENDS))
+        independs = RFC822Parser(fileob=open(DEPENDS))
         for initfile, facilities in independs.iteritems():
             depends[initfile] = facilities.split()
     return depends
@@ -138,7 +138,7 @@ def save_depends(depends):
             pass
         return
     
-    fh = file(DEPENDS, 'w')
+    fh = open(DEPENDS, 'w')
     for initfile, facilities in depends.iteritems():
         print('%s: %s' % (initfile, ' '.join(facilities)), fh)
     fh.close()
