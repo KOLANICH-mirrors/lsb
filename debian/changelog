@@ -1,3 +1,9 @@
+lsb (4.1+Debian11ubuntu4) saucy; urgency=low
+
+  * Allow lsb-printing to depend on cups-filters | ghostscript-cups.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Mon, 09 Sep 2013 10:17:15 -0400
+
 lsb (4.1+Debian11ubuntu3) saucy; urgency=low
 
   * Use open() rather than file() in initdutils.py, for Python 3
