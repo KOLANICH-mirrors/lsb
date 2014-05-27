@@ -1,3 +1,9 @@
+lsb (4.1+Debian11ubuntu7) utopic; urgency=medium
+
+  * Add 01-upstart-lsb from the upstart package.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Tue, 27 May 2014 16:18:04 +0200
+
 lsb (4.1+Debian11ubuntu6) trusty; urgency=medium
 
   * Don't hardcode pyshared in the install files.
