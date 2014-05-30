@@ -1,3 +1,10 @@
+lsb (4.1+Debian11ubuntu8) utopic; urgency=medium
+
+  * Modify 01-upstart-lsb hook, to make executing rc.d scripts no-op if
+    there is an upstart job for that script.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Fri, 30 May 2014 11:38:47 +0200
+
 lsb (4.1+Debian11ubuntu7) utopic; urgency=medium
 
   * Add 01-upstart-lsb from the upstart package.

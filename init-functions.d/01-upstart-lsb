@@ -2,8 +2,16 @@
 
 # Operate against system upstart, not session
 unset UPSTART_SESSION
-_UPSTART_JOB=${0#/etc/init.d/}
 
+# Bail if there is an upstart job, and called via RC
+_RC_SCRIPT=${0#/etc/rc?.d/[KS]??*}
+if [ -r "/etc/init/${_RC_SCRIPT}.conf" ] && which initctl >/dev/null \
+   && initctl version 2>/dev/null | grep -q upstart
+then
+   exit 0
+fi
+
+_UPSTART_JOB=${0#/etc/init.d/}
 if [ -r "/etc/init/${_UPSTART_JOB}.conf" ] && which initctl >/dev/null \
    && initctl version 2>/dev/null | grep -q upstart \
    && initctl status ${_UPSTART_JOB} 2>/dev/null 1>/dev/null
