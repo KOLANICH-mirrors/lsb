@@ -1,3 +1,528 @@
+lsb (4.1+Debian11ubuntu1) saucy; urgency=low
+
+  * Merge from Debian unstable, remaining changes:
+    - Mark lsb-core Multi-Arch: foreign.
+    - Use python3 instead of python2.
+    - Fix status_of_proc returning incorrect error code; and when a pidfile
+      is specified, return "unknown" if it exists but isn't readable (as
+      would be the case for non-root with a root-only pidfile), and return
+      "not running" if the pidfile otherwise doesn't provide a useful PID.
+      This issue may also be fixed now in the Debian version, but someone
+      needs to compare the differing implementations to verify before this
+      delta can be dropped.
+    - Prefer mailx (main) over mailutils (universe)
+    - Depend directly on libnss3 and libnspr4 rather than via the
+      transitional packages libnss3-1d and libnspr4-0d.
+  * Changes included in Debian:
+    - lsb_release: Add -Es to #! line for Python.
+    - Correct duplicate reference to log_action_end_msg_post in
+      debian/lsb-base.README.Debian.
+    - Fix debian/copyright to list the correct Canonical copyright for the
+      Ubuntu logging functions.
+    - Revert use of /bin/echo for echo-n.
+    - Port initdutils.py to python3 so that the tests will pass at build
+      time.
+    - Fix build failure when only building architecture-dependent packages
+      on Ubuntu.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sat, 18 May 2013 20:54:45 -0700
+
+lsb (4.1+Debian11) unstable; urgency=low
+
+  [ Steve Langasek ]
+  * add -Es to the lsb_release python shebang, as discussed in
+    <https://lists.debian.org/debian-python/2012/10/msg00021.html>.
+  * Fix debian/copyright to list the correct Canonical copyright for the
+    Ubuntu logging functions.
+  * Correct duplicate reference to log_action_end_msg_post in
+    debian/lsb-base.README.Debian.
+  * debian/rules: fix the build on Ubuntu derivatives when building only the
+    arch-dependent packages.
+
+  [ Didier Raboud ]
+  * Add jessie to the release codenames lookup table
+  * Get Distributor ID from /etc/dpkg/origins/default if existant
+    (Closes: #703677)
+  * Bump Standards-Version to 3.9.4 without changes needed
+  * Correct lsb-desktop.NEWS syntax errors
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 15 May 2013 22:15:05 +0200
+
+lsb (4.1+Debian10) unstable; urgency=low
+
+  [ Steve Langasek ]
+  * Fix the remaining problems of initdutils.py python3 compatibility
+    (Closes: #673586)
+  * Revert unnecessary use of /bin/echo -n (Closes: #708337)
+
+  [ Didier Raboud ]
+  * Compress source with xz
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 15 May 2013 11:06:44 +0200
+
+lsb (4.1+Debian9ubuntu4) saucy; urgency=low
+
+  * Depend directly on libnss3 and libnspr4 rather than via the transitional
+    packages libnss3-1d and libnspr4-0d.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 16 May 2013 14:48:45 +0100
+
+lsb (4.1+Debian9ubuntu3) saucy; urgency=low
+
+  * Prefer mailx over mailutils; this apparently was a deliberate (but
+    undocumented) delta in Ubuntu.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 15 May 2013 17:49:45 +0000
+
+lsb (4.1+Debian9ubuntu2) saucy; urgency=low
+
+  * Fix build failure when only building architecture-dependent packages.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 15 May 2013 04:22:58 -0500
+
+lsb (4.1+Debian9ubuntu1) saucy; urgency=low
+
+  * Merge from Debian unstable:
+    - lsb-desktop no longer depends on transitional libqt4-gui.  LP: #339501.
+    - lsb-invalid-mta includes /usr/lib/sendmail as a symlink.  LP: #580914.
+    - fixes a typo in the package description.  LP: #1177473.
+  * Remaining changes:
+    - Mark lsb-core Multi-Arch: foreign.
+    - Use python3 instead of python2.
+    - Fix status_of_proc returning incorrect error code; and when a pidfile
+      is specified, return "unknown" if it exists but isn't readable (as
+      would be the case for non-root with a root-only pidfile), and return
+      "not running" if the pidfile otherwise doesn't provide a useful PID.
+      This issue may also be fixed now in the Debian version, but someone
+      needs to compare the differing implementations to verify before this
+      delta can be dropped.
+    - Correct duplicate reference to log_action_end_msg_post in
+      debian/lsb-base.README.Debian.
+    - lsb_release: Add -Es to #! line for Python.
+  * Dropped changes, included in Debian:
+    - Mark lsb-release and lsb-base Multi-Arch: foreign.
+    - Drop Qt3 from lsb-desktop depends and add lsb-desktop.NEWS to explain
+      its absence
+    - Depend on libgl1-mesa-glx rather than libgl1-mesa as preferred libgl1
+      alternative.
+    - Use dpkg --print-architecture rather than
+      --print-installation-architecture.
+    - Use $DPKG_MAINTSCRIPT_ARCH in the maintainer scripts to decide the
+      correct symlinks to set up, instead of going by the dpkg built-in
+      architecture.
+    - Don't conflict with python (>= 2.6).
+    - Use dh_python2
+    - lsb_release.py: Ensure that files are closed promptly; Python 3.2
+      prints ResourceWarning noise otherwise.
+    - Skip calling apt-cache if /etc/lsb-release contains everything we need.
+    - sendmail, debian/control, debian/rules, debian/lsb-invalid-mta.dirs:
+      include new "lsb-invalid-mta" package.
+    - Remove /usr/lib/pymodules/python2.6/lsb_release.py on upgrades; this
+      was a karmic-only upgrade issue that we could have removed the
+      handling for back in maverick, better late than never.
+    - Add Ubuntu logging functions.
+    - Added ghostscript-cups dependency.
+    - Made lsb-printing required by the lsb package, not just suggested.
+  * lsb-languages must depend on python, not on python3, as /usr/bin/python is
+    the interface guaranteed by this submodule.
+  * Fix debian/copyright to list the correct Canonical copyright for the
+    Ubuntu logging functions.
+  * Revert wrongheaded calls to /bin/echo whenever -n is used; 'echo -n' is
+    guaranteed by Debian policy, we don't want a bunch of extra forks here
+    for no reason.
+  * Port initdutils.py to python3 so that the tests will pass at build time.
+  * Call 2to3 correctly so that the scripts in /usr/lib/lsb are usable under
+    python3.  LP: #798192.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 15 May 2013 04:07:27 -0500
+
+lsb (4.1+Debian9) unstable; urgency=low
+
+  [ Jeff Licquia ]
+  * Sanity-check pidofproc parameters. (Closes: #691422)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 12 Nov 2012 08:58:04 +0100
+
+lsb (4.1+Debian8) unstable; urgency=low
+
+  * Fix libqt3-mt missing epoch.
+  * Hide the stderr output of $(initctl version) in init_is_upstart.
+    (Closes: #682032)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Nov 2012 12:03:33 +0100
+
+lsb (4.1+Debian7) unstable; urgency=low
+
+  * lsb-desktop: Demote Qt3 dependency to a Recommends. Closes: #604360
+    - Add a README.Debian to lsb-desktop to document the possibility to
+      install Qt3 from snapshot.debian.org;
+    - Add a NEWS.Debian to lsb-desktop to document the derogation to the
+      LSB 4.1 specification.
+
+  * Accept utf-8 in `apt-cache policy` and `dpkg-query` outputs; add
+    test-case. (Closes: #675618)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 10 Jun 2012 23:18:07 +0200
+
+lsb (4.1+Debian6) unstable; urgency=low
+
+  * Revert "Allow FANCYTTY to be sourced from /etc/default/rcS." This
+    avoids one ugly `set +u` in the $() subshell and avoids the hijack
+    of /etc/default/rcS. (Reopens: #673207, Closes: #675162, #675197)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 30 May 2012 19:27:22 +0200
+
+lsb (4.1+Debian5) unstable; urgency=low
+
+  * lsb-base; init-functions:
+    - Correct comment about hooks.
+    - Enhance doc about files sourced from init-functions
+    - Allow FANCYTTY to be sourced from /etc/default/rcS. (Closes: #673207)
+    - Safe-guard calls to echo with `|| true`; this helps towards making
+      sure init.d scripts called with `set -e` continue to work, see
+      #661002.
+
+  * lsb-release; python code:
+    - In guess_debian_release(), avoid calling guess_release_from_apt()
+      and hence the slow `apt-cache policy` if a codename is already
+      provided. Patch by Francois Gouget. (Closes: #674143)
+    - Add unittests for all lsb_release.py functions.
+    - Upgrade to python3-compatible syntax.
+    - Deprecate the lsb_release.compare_releases() function.
+
+  * lsb-invalid-mta;
+    -  Add the /usr/lib/sendmail symlink to /usr/sbin/sendmail.
+       (LP: #580914)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 29 May 2012 09:33:04 +0200
+
+lsb (4.1+Debian4) unstable; urgency=low
+
+  * In init-functions, include hooks from /lib/lsb/init-functions.d
+    - Source any file in there.
+    - Document that in lsb-base.README.
+    - Put the Ubuntu logging functions in there; remove the now-obsolete
+      configuration file with dpkg-maintscript-helper.
+    - Move the "Fancy output left info blocks" in there.
+
+  * Python code: Add an initial (but incomplete) unittest framework for python
+    2.7 and 3.2.
+
+  * Properly document the first version with init_is_upstart.
+  * Avoid writing the now useless lsb-qt4.substvars file.
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 18 May 2012 22:06:07 +0200
+
+lsb (4.1+Debian3) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Compress the orig source tarball with bzip2.
+  * Update LSB and packages versions in README.Debian.
+  * Fix typo in lsb-invalid-mta's Description.
+  * Drop empty directory in lsb-base.
+    Instead of moving lsb-base-logging.sh to /etc/lsb/, drop the empty /etc/lsb.
+    (Closes: #671730)
+
+  [ Steve Langasek ]
+  * Add a new helper function: init_is_upstart().
+    init_is_upstart() is to be used by init scripts of upstart-aware packages to
+    render the init script inert when upstart is present.
+    Signed-off-by: Didier Raboud <odyx@debian.org> (Closes: #661109)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 May 2012 19:21:36 +0200
+
+lsb (4.1+Debian2) unstable; urgency=low
+
+  * Fancy output:
+    - Avoid two superfluous calls to /bin/echo.
+    - Make the cursor invisible when printing the status block.
+  * Make sure OPTIND is marked local for each use. (Closes: #669909)
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 24 Apr 2012 21:33:39 +0200
+
+lsb (4.1+Debian1) unstable; urgency=low
+
+  * lsb-base: Upload the new "Fancy output" to unstable:
+    - Move information from NEWS.Debian to README.Debian, enhance it.
+
+  * pidofproc(): Make sure to try /bin/pidof when no pidfile is
+    specified. (Closes: #668958)
+  * In killproc(), make sure to exit 0 when the program is not running
+    and when no signal was specified. (Closes: #668416)
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 19 Apr 2012 11:25:01 +0200
+
+lsb (4.1+Debian0+fancy1) experimental; urgency=low
+
+  * Fancy output: prepend [info] blocks to log_action_msg calls.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 12 Apr 2012 21:20:09 +0200
+
+lsb (4.1+Debian0+fancy0) experimental; urgency=low
+
+  * Make the init.d scripts messages fancier by prepending them a [....]
+    block that becomes [ ok ], [warn] or [FAIL] depending on the daemons
+    exit statuses (Closes: #416485).
+    - Update lsb-base' README.Debian and NEWS.
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 31 Mar 2012 18:49:23 +0200
+
+lsb (4.1+Debian0) unstable; urgency=low
+
+  * Upload LSB 4.1 support to unstable.
+  * Add lsb-languages to lsb Depends.
+  * Drop lsb suggests, obsoleted by dependencies changes.
+  * Make init-functions' status_of_proc return the LSB-documented 3 on
+    inexistant pidfiles. (Closes: #664621)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 26 Mar 2012 22:54:40 +0200
+
+lsb (4.1+Debian0~exp2) experimental; urgency=low
+
+   * lsb-base.README.Debian: Document status_of_proc. (Closes: #565631)
+   * Tighten more dependencies between lsb packages.
+   * Update package relationships to match LSB 4.1:
+     - Add lsb-security to lsb-core Depends.
+     - Add lsb-multimedia to lsb-desktop Depends.
+     - Add libpod-plainer-perl to lsb-languages depends.
+   * Rewrite debian/copyright using the copyright-format 1.0.
+   * Bump Standards-Version to 3.9.3 without changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 15 Mar 2012 11:02:19 +0100
+
+lsb (4.1+Debian0~exp1) experimental; urgency=low
+
+  * Merge the lsb 3.2+Debian31 Debian release.
+  * Tighten dependencies between lsb-* packages.
+  * In killproc(), re-add a '--retry 5' to s-s-d when no signal is
+    specified. (Closes: #650584)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 11 Mar 2012 17:34:53 +0100
+
+lsb (4.1+Debian0~exp0) experimental; urgency=low
+
+  [ Till Kamppeter ]
+  * Add the "lsb-invalid-mta" package, with a fake sendmail. This allows
+    the installation of LSB packages to not pull in an MTA any more,
+    which once adds awkward configuration questions to the installation
+    process and second adds an often unnneeded daemon to the system.
+    (LP: #141641)
+
+  [ Didier Raboud ]
+  * Upgrade to support LSB 4.1. (Closes: #586191, LP: #385606, #386128)
+    LSB changes:
+     - Bump Depends:
+       - on libglib2.0-0  to >= 2.12.13;
+       - on fontconfig    to >= 2.6.0;
+       - on libglib2.0-0  to >= 2.12.13;
+       - on libatk1.0-0   to >= 1.10.3;
+       - on libpango1.0-0 to >= 1.10.4;
+       - on libgtk2.0-0   to >= 2.10.14;
+     - Add Depends:
+       - on libglu1;
+       - on libcairo2     to >= 1.2.0;
+       - on libxtst6;
+       - on ghostscript-cups;
+     - In lsb, bump lsb-printing from Suggests to Depends.
+     - Add the lsb-security package.
+     - Drop the now-obsolete lsb-qt4 package.
+    Debian changes:
+     - libgl1-mesa-glx is the first alternative for libgl1;
+     - Make sure all packages have ${misc:Depends}.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Mar 2012 22:42:21 +0100
+
+lsb (3.2+Debian31) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Correct a bug number in the 3.2+Debian30 upload.
+  * Promote lsb-release to Priority: optional.
+  * Fix both unused and undeclared local variables in pidofproc.
+    (Closes: #663351)
+
+  [ Peter Eisentraut ]
+  * Handle non-world-readable pid files. (Closes: #653598)
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 11 Mar 2012 15:04:47 +0100
+
+lsb (3.2+Debian30) unstable; urgency=low
+
+  * Drop Depends on essentials sed & ncurses-bin. (Closes: #488237)
+  * Don't display Debian revision in lsb_release modules version output.
+  * Update Qt4 relationships to current packaging. (Closes: #661888)
+  * Remove /lib/ld-lsb-x86-64.so.* only on upgrade. (Closes: #642076)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 05 Mar 2012 20:15:43 +0100
+
+lsb (3.2+Debian29) unstable; urgency=low
+
+  [ Didier Raboud ]
+  * Wrap debian/control package relationship lines.
+  * Put under explicit debian-lsb@l.d.o team maintenance.
+    (Closes: #616131)
+  * Add myself as uploader.
+  * Drop Chris Lawrence from Uploaders with great thanks for his past
+    work. (Closes: #616131)
+  * Define source format as '3.0 (native)'.
+  * Reduce debian/rules using tiny dh7 style.
+  * Add initial lintian overrides files.
+  * Add explicit `set -e` to maintainer scripts.
+  * Drop Conflicts/Replaces for old package versions.
+  * Install lsb-base-logging.sh on Ubuntu.
+  * Update the Homepage field to point to the public URL.
+    (Closes: #653917)
+  * Depend on cron-daemon, with cron as first alternative.
+    (Closes: #638004)
+  * Add Vcs-* fields as this will now be maintained on collab-maint's
+    Git.
+  * Correct URLs to refspecs.{freestandards,linuxbase}.org.
+  * Recognise Debian Ports as `sid` too. (Closes: #624769)
+
+  [ Michael Vogt ]
+  * Switch from python-central to dh_python2. (Closes: #606354)
+
+  [ Colin Watson ]
+  * Ensure that files are closed promptly in lsb_release.py
+  * Mark lsb-base Multi-Arch: foreign. (LP: #904013)
+
+  [ Steve Langasek ]
+  * Don't run apt-cache if /etc/lsb-release exists.
+  * Mark lsb-release Multi-Arch: foreign.
+  * Use $DPKG_MAINTSCRIPT_ARCH in maintainer scripts
+
+  [ Simone Rossetto ]
+  * Fix for unsupported negative value in pin priorities.
+    (Closes: #540208)
+
+  [ Michał Kułach ]
+  * Add the Debconf Polish translation. (Closes: #661251)
+
+  [ Jeff Licquia ]
+  * Add me to Uploaders.
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 01 Mar 2012 22:04:11 +0100
+
+lsb (3.2-28.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Korean (강민지).  Closes: #632010,#632018
+    - Catalan; (Innocent De Marchi).  Closes: #641828
+
+ -- Christian Perrier <bubulle@debian.org>  Mon, 16 Jan 2012 07:21:11 +0100
+
+lsb (3.2-28) unstable; urgency=low
+
+  * Fix symlinks for AMD64.  (Closes: #638450)
+  * Please note the RFA/ITA for this package (#616131).
+
+ -- Chris Lawrence <lawrencc@debian.org>  Fri, 26 Aug 2011 16:25:30 -0400
+
+lsb (3.2-27) unstable; urgency=low
+
+  * Track down another use of dpkg --print-installation-architecture.
+    (Closes: #610049)
+  * Various cleanups to init-functions, courtesy of Jari Aalto:
+    + Use /bin/echo when using options throughout.  (Closes: #602038)
+    + Use $() command substitution.  (Closes: #602035)
+    + Use && and || instead of -a and -o.  (Closes: #602037)
+    + Break long lines.  (Closes: #602039)
+    + Cleanup use of local.  (Closes: #602042)
+    + Use single-line statements.  (Closes: #602044)
+    + Use self-documenting values of variables.  (Closes: #602048)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 17 Jan 2011 14:24:35 -0600
+
+lsb (3.2-26) unstable; urgency=low
+
+  * Fix reversed assignment in compare_release.  (Closes: #540208)
+  * Move lsb(8) to lsb-core package.  (Closes: #589101)
+  * Update da translation of debconf templates; thanks to Joe Dalton.
+    (Closes: #599461)
+  
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 06 Oct 2010 20:35:30 -0500
+
+lsb (3.2-25) unstable; urgency=low
+
+  * Improve release comparison function when 'suite' is missing from
+    sources.list.  (Closes: #597667)
+  * return 3 in pidofproc() if we can't track down a running copy of
+    the process and the pidfile is missing.  (Closes: #597628)
+  * Correct location of README.Debian.gz in lsb(8).  (Closes: #589100)
+  * Add link to LSB specification in lsb(8).  (Closes: #589102)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Mon, 27 Sep 2010 01:15:49 -0500
+
+lsb (3.2-24) unstable; urgency=low
+
+  * Improve detection of Debian version when there is a "tie" in
+    APT's sources.list.  Patch by Giovanni Mascellani.  (Closes: #540208)
+  * Fix test for PID file in init-functions.  Patch by Keith O'Brien.
+    (Closes: #545896)
+  * Fix reporting for more recent versions of Debian GNU/kFreeBSD.  Patch
+    by Gonéri Le Bouder.  (Closes: #595159)
+  * Use --print-architecture instead of --print-installation-architecture
+    in lsb-core postinst.  (Closes: #542610)
+  * Fix formatting error in lsb_release(1).  Patch by Adam Guthrie.
+    (Closes: #586575)
+  * Update pt_BR translation for debconf messages, thanks to Flamarion Jorge.
+    (Closes: #596438)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 18 Sep 2010 17:08:17 -0500
+
+lsb (3.2-23.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix dependencies of lsb-core on kfreebsd-* and hurd-* to make the
+    package installable. Thanks to Aurelien Jarno for the patch and the
+    bugreport.  (Closes: #539284)
+  * Set XS-Python-Version to all to make lsb-release available for all
+    supported Python versions. Thanks to Sandro Tosi for the bug report.
+    (Closes: #570586)
+  * Don't make lsb-core conflict with python (>= 2.6).
+
+ -- Jakub Wilk <jwilk@debian.org>  Sun, 21 Mar 2010 15:39:47 +0100
+
+lsb (4.0-0ubuntu27) raring; urgency=low
+
+  * lsb_release: Add -Es to #! line for Python so that it will ignore
+    the $PYTHON* environment variables, and not add the user's site
+    directory to sys.path.  Both of these are general recommendations that
+    should apply to all system scripts, but in this case fixes LP: #938869
+
+ -- Barry Warsaw <barry@ubuntu.com>  Tue, 23 Oct 2012 18:48:21 -0400
+
+lsb (4.0-0ubuntu26) quantal; urgency=low
+
+  * When a pidfile is specified, but fails to produce a PID to test,
+    return "unknown" if it exists but isn't readable (as would be
+    the case for non-root with a root-only pidfile), and return "not
+    running" if the pidfile otherwise doesn't provide a useful PID.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Wed, 10 Oct 2012 11:21:48 -0600
+
+lsb (4.0-0ubuntu25) quantal; urgency=low
+
+  * Fix regression from 4.0-0ubuntu23 that would cause status_of_proc
+    to return success if asked to find a service by pidfile, while an
+    entirely different copy (chroot, different user, etc) was running 
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Wed, 10 Oct 2012 10:20:42 -0600
+
+lsb (4.0-0ubuntu24) quantal; urgency=low
+
+  * Drop Qt3 from lsb-desktop depends and add lsb-desktop.NEWS to explain its
+    absence (following Debian) (LP: #1029476)
+    - Needed for Qt3 removal
+
+ -- Scott Kitterman <scott@kitterman.com>  Fri, 28 Sep 2012 20:32:15 -0400
+
+lsb (4.0-0ubuntu23) quantal; urgency=low
+
+  * Fix status_of_proc returning incorrect error code (LP: #683640)
+
+ -- Adam Stokes <adam.stokes@canonical.com>  Tue, 24 Jul 2012 13:26:54 -0700
+
 lsb (4.0-0ubuntu22) quantal; urgency=low
 
   * Use python3 instead of python2 (again).

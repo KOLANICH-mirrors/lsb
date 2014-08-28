@@ -1,2 +1,1 @@
-lib/lsb
-etc/lsb-base
+/lib/lsb/init-functions.d
