@@ -1,4 +1,4 @@
-lsb (4.1+Debian14+) UNRELEASED; urgency=medium
+lsb (4.1+Debian14+exp0) experimental; urgency=low
 
   This update drops all lsb-* compatibility packages, and is therefore an
   abandon of the pursuit of LSB compatibility for Debian. Only lsb-release and
