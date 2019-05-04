@@ -321,6 +321,7 @@ def get_os_release():
     if os.path.exists(os_release):
         try:
             with open(os_release) as os_release_file:
+                dist_name = None
                 for line in os_release_file:
                     line = line.strip()
                     if not line:
@@ -343,6 +344,14 @@ def get_os_release():
                             distinfo['ID'] = arg.strip().title()
                         elif var == 'PRETTY_NAME':
                             distinfo['DESCRIPTION'] = arg.strip()
+                        elif var == 'NAME':
+                            dist_name = arg.strip()
+            # some distributions (like PureOS) might use mixed capitalization for their ID,
+            # so we use NAME as ID in case only capitalization differs
+            dist_id = distinfo.get('ID')
+            if dist_id and dist_name:
+                if dist_id.lower() == dist_name.lower():
+                    distinfo['ID'] = dist_name
         except IOError as msg:
             print('Unable to open ' + os_release + ':', str(msg), file=sys.stderr)
 
