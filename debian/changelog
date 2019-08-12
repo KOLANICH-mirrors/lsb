@@ -1,9 +1,9 @@
-lsb (10.2019051400+nmu1) UNRELEASED; urgency=medium
+lsb (10.2019051400+nmu1) unstable; urgency=medium
 
   * Non-maintainer upload.
   * Introduce logging functions that check ${VERBOSE} (Closes: #928920)
 
- -- Dmitry Bogatov <KAction@debian.org>  Mon, 12 Aug 2019 01:46:59 +0000
+ -- Dmitry Bogatov <KAction@debian.org>  Mon, 12 Aug 2019 01:50:37 +0000
 
 lsb (10.2019051400) unstable; urgency=medium
 
