@@ -1,3 +1,18 @@
+lsb (11.0.0) UNRELEASED; urgency=medium
+
+  * New maintainer (Closes: #924519)
+  * Introduce logging functions that check ${VERBOSE} (Closes: #928920)
+  * Trim trailing whitespace.
+  * Bump debhelper from old 11 to 12.
+  * Change priority extra to priority optional.
+  * Update standards version to 4.4.0
+  * Reformat debian/changelog to fit 80 column
+  * Remove unused `debian/gbp.conf'
+  * Remove redundant priority field in bin:lsb-release
+  * Remove suggestion for non-existent bin:lsb
+
+ -- Dmitry Bogatov <KAction@debian.org>  Tue, 13 Aug 2019 18:21:49 +0000
+
 lsb (10.2019051400) unstable; urgency=medium
 
   [ Harald Dunkel ]
