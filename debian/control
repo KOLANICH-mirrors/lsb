@@ -33,7 +33,6 @@ Description: Linux Standard Base init script functionality
 
 Package: lsb-release
 Architecture: all
-Priority: optional
 Multi-Arch: foreign
 Depends: ${python3:Depends},
  ${misc:Depends},
