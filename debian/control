@@ -1,6 +1,6 @@
 Source: lsb
 Section: misc
-Priority: extra
+Priority: optional
 Maintainer: Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>
 Uploaders: Dmitry Bogatov <KAction@debian.org>
 Build-Depends:
