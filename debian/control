@@ -38,7 +38,6 @@ Depends: ${python3:Depends},
  ${misc:Depends},
  distro-info-data,
 Recommends: apt
-Suggests: lsb
 Description: Linux Standard Base version reporting utility
  The Linux Standard Base (http://www.linuxbase.org/) is a standard
  core system that third-party applications written for Linux can
