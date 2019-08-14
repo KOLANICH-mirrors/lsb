@@ -1,7 +1,7 @@
 ## Generated automatically. Do not edit! -*- shell-script -*-
 {% for fn in log_functions %}
-v{{ fn }} () {
-	if test "${VERBOSE:-yes}" != no ; then
+v{{ fn }}() {
+	if test x"${VERBOSE:-yes}" != x"no" ; then
 		{{ fn }} "$@"
 	fi
 }
