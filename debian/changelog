@@ -1,9 +1,9 @@
-lsb (11.0.1) UNRELEASED; urgency=medium
+lsb (11.0.1) unstable; urgency=medium
 
   * Improve portability of init-functions.d/00-verbose.
     Thanks to Thorsten Glaser <t.glaser@tarent.de>
 
- -- Dmitry Bogatov <KAction@debian.org>  Wed, 14 Aug 2019 22:30:58 +0000
+ -- Dmitry Bogatov <KAction@debian.org>  Wed, 14 Aug 2019 22:31:15 +0000
 
 lsb (11.0.0) unstable; urgency=medium
 
