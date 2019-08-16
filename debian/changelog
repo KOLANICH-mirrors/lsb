@@ -1,3 +1,10 @@
+lsb (11.1.0) UNRELEASED; urgency=medium
+
+  * Drop cursor-moving code from init-functions
+    (Closes: #934502, #670144, #672929)
+
+ -- Dmitry Bogatov <KAction@debian.org>  Fri, 16 Aug 2019 05:18:02 +0000
+
 lsb (11.0.1) unstable; urgency=medium
 
   * Improve portability of init-functions.d/00-verbose.
