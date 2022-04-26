@@ -144,8 +144,7 @@ killproc () {
         name_param="--name $base --pidfile $pidfile"
     fi
 
-    sig=$(echo ${2:-} | sed -e 's/^-\(.*\)/\1/')
-    sig=$(echo $sig | sed -e 's/^SIG\(.*\)/\1/')
+    sig=${2:-} sig=${sig#-} sig=${sig#SIG}
     if [ "$sig" = 15 ] || [ "$sig" = TERM ]; then
         is_term_sig="terminate_signal"
     fi
