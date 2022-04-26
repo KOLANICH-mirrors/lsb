@@ -226,21 +226,21 @@ log_use_fancy_output () {
 
 log_success_msg () {
     if [ -n "${1:-}" ]; then
-        log_begin_msg $@
+        log_begin_msg "$@"
     fi
     log_end_msg 0
 }
 
 log_failure_msg () {
     if [ -n "${1:-}" ]; then
-        log_begin_msg $@ "..."
+        log_begin_msg "$@" "..."
     fi
     log_end_msg 1 || true
 }
 
 log_warning_msg () {
     if [ -n "${1:-}" ]; then
-        log_begin_msg $@ "..."
+        log_begin_msg "$@" "..."
     fi
     log_end_msg 255 || true
 }
