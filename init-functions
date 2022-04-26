@@ -338,9 +338,6 @@ log_end_msg () {
         return 1
     fi
 
-    local retval
-    retval=$1
-
     log_end_msg_pre "$@"
 
     # Only do the fancy stuff if we have an appropriate terminal
@@ -361,7 +358,7 @@ log_end_msg () {
         echo " ${red}failed!${normal}" || true
     fi
     log_end_msg_post "$@"
-    return $retval
+    return $1
 }
 
 log_action_msg () {
