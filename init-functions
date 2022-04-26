@@ -210,14 +210,9 @@ status_of_proc () {
 }
 
 log_use_fancy_output () {
-    TPUT=/usr/bin/tput
-    EXPR=/usr/bin/expr
     if  [ -t 1 ] &&
 	[ "x${TERM:-}" != "x" ] &&
-	[ "x${TERM:-}" != "xdumb" ] &&
-	[ -x $TPUT ] && [ -x $EXPR ] &&
-	$TPUT hpa 60 >/dev/null 2>&1 &&
-	$TPUT setaf 1 >/dev/null 2>&1
+	[ "x${TERM:-}" != "xdumb" ]
     then
         [ -z $FANCYTTY ] && FANCYTTY=1 || true
     else
@@ -349,23 +344,21 @@ log_end_msg () {
     log_end_msg_pre "$@"
 
     # Only do the fancy stuff if we have an appropriate terminal
-    # and if /usr is already mounted
     if log_use_fancy_output; then
-        RED=$( $TPUT setaf 1)
-        YELLOW=$( $TPUT setaf 3)
-        NORMAL=$( $TPUT op)
+        esc=''		# escape character, printf '\033'
+        red="$esc[31m"		# ANSI color escapes
+        yellow="$esc[33m"
+        normal="$esc[0m"
     else
-        RED=''
-        YELLOW=''
-        NORMAL=''
+        red= yellow= normal=
     fi
 
     if [ $1 -eq 0 ]; then
         echo "." || true
     elif [ $1 -eq 255 ]; then
-        /bin/echo -e " ${YELLOW}(warning).${NORMAL}" || true
+        echo " ${yellow}(warning).${normal}" || true
     else
-        /bin/echo -e " ${RED}failed!${NORMAL}" || true
+        echo " ${red}failed!${normal}" || true
     fi
     log_end_msg_post "$@"
     return $retval
@@ -400,9 +393,10 @@ log_action_end_msg () {
         echo "done${end}" || true
     else
         if log_use_fancy_output; then
-            RED=$( $TPUT setaf 1)
-            NORMAL=$( $TPUT op)
-            /bin/echo -e "${RED}failed${end}${NORMAL}" || true
+            esc=''		# escape character, printf '\033'
+            red="$esc[31m"	# ANSI color escapes
+            normal="$esc[0m"
+            echo "${red}failed${end}${normal}" || true
         else
             echo "failed${end}" || true
         fi
