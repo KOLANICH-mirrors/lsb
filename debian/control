@@ -2,7 +2,7 @@ Source: lsb
 Section: misc
 Priority: optional
 Maintainer: Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>
-Uploaders: Dmitry Bogatov <KAction@debian.org>
+Uploaders: Dmitry Bogatov <KAction@debian.org>, Mark Hindley <leepen@debian.org>
 Build-Depends:
  po-debconf (>= 0.5.0),
  dpkg-dev (>= 1.10),
