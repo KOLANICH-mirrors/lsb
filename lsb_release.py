@@ -45,7 +45,7 @@ def get_distro_info(origin='Debian'):
     global RELEASE_CODENAME_LOOKUP, RELEASES_ORDER, TESTING_CODENAME
     RELEASE_CODENAME_LOOKUP = { r['version']: r['series'] for r in reader if r['version']}
     RELEASES_ORDER = list(RELEASE_CODENAME_LOOKUP.items())
-    RELEASES_ORDER.sort(key=lambda n: [int(v) for v in re.split('([[:space:].])+', n[0]) if v.isdigit()])
+    RELEASES_ORDER.sort(key=lambda n: [int(v) for v in re.split('\D+', n[0]) if v.isdigit()])
     RELEASES_ORDER = list(list(zip(*RELEASES_ORDER))[1])
 
     if origin.lower() == 'debian':
