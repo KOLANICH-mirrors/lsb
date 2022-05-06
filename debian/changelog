@@ -1,3 +1,30 @@
+lsb (11.2~rc1) experimental; urgency=medium
+
+  [ Mark Hindley ]
+  * Add myself to uploaders.
+  * Remove Dmitry Bogatov from uploaders (Closes: #991031).
+  * Update to Standards Version 4.6.0 (no changes).
+  * Remove obsolete python2 support (Closes: #1003625).
+  * d/control: add missing newline at end.
+  * Ignore strings when sorting release versions. (Closes: #980566)
+  * Suppress our own deprecation warning when testing compare_release().
+  * Catch exceptions from running apt-cache and warn but continue.
+    (Closes: #951651)
+  * lsb_release.1: remove reference to obsolete lsb(8). (Closes: #962969)
+
+
+  [ Trek ]
+  * Hardcode ANSI escapes to replace tput in logging functions.
+    Thanks to Adam Borowski <kilobyte@angband.pl>
+  * Fix the return value of vlog* functions when VERBOSE=no
+  * Preserve FANCYTTY after log_use_fancy_output calls
+  * Quote parameters when calling logging functions.
+    Thanks to Bjarni Ingi Gislason <bjarniig@rhi.hi.is> (Closes: #660790)
+  * Optimize killproc using parameter expansions.
+    Thanks to Carl Albing <carl-albing@bethel.edu>
+
+ -- Mark Hindley <leepen@debian.org>  Tue, 10 May 2022 17:57:45 +0100
+
 lsb (11.1.0) unstable; urgency=medium
 
   * Drop cursor-moving code from init-functions
