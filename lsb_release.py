@@ -161,11 +161,16 @@ def parse_apt_policy():
     data = []
     
     C_env = os.environ.copy(); C_env['LC_ALL'] = 'C.UTF-8'
-    policy = subprocess.Popen(['apt-cache','policy'],
-                              env=C_env,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              close_fds=True).communicate()[0].decode('utf-8')
+    try:
+        policy = subprocess.Popen(['apt-cache','policy'],
+                                  env=C_env,
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE,
+                                  close_fds=True).communicate()[0].decode('utf-8')
+    except Exception as e:
+        print('Failed to run apt-cache:', e, file=sys.stderr)
+        return
+
     for line in policy.split('\n'):
         line = line.strip()
         m = re.match(r'(-?\d+)', line)
