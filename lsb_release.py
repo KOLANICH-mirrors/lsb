@@ -26,15 +26,10 @@ import warnings
 import csv
 
 def get_distro_info(origin='Debian'):
-    try:
-        FileNotFoundException = FileNotFoundError
-    except NameError:
-        # There is no FileNotFoundError in python2
-        FileNotFoundException = IOError
 
     try:
         csvfile = open('/usr/share/distro-info/%s.csv' % origin.lower())
-    except FileNotFoundException:
+    except FileNotFoundError:
         # Unknown distro, fallback to Debian
         csvfile = open('/usr/share/distro-info/debian.csv')
 
