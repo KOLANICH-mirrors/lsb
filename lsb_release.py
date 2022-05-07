@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # LSB release detection module for Debian
 # (C) 2005-10 Chris Lawrence <lawrencc@debian.org>
 # (C) 2018 Didier Raboud <odyx@debian.org>
