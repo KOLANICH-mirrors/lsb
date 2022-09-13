@@ -19,7 +19,7 @@ Vcs-Git: https://salsa.debian.org/debian/lsb.git
 Package: lsb-base
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, sysvinit-utils (>= 3.05-4~)
 Pre-Depends: ${misc:Pre-Depends}
 Section: oldlibs
 Priority: optional

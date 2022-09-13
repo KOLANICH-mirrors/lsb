@@ -1,3 +1,9 @@
+lsb (11.4) unstable; urgency=medium
+
+  * lsb-base: add a dependency on sysvinit-utils 3.05-4 (Closes: #1019661)
+
+ -- Adam Borowski <kilobyte@angband.pl>  Tue, 13 Sep 2022 20:04:40 +0200
+
 lsb (11.3) unstable; urgency=medium
 
   * Team upload.
