@@ -1,3 +1,10 @@
+lsb (11.5) unstable; urgency=medium
+
+  * Team upload.
+  * Drop lsb-release, taken over by src:lsb-release-minimal.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Wed, 02 Nov 2022 01:41:43 +0100
+
 lsb (11.4) unstable; urgency=medium
 
   * Team upload.
