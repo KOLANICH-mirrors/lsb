@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>
 Uploaders: Mark Hindley <leepen@debian.org>
 Build-Depends:
- debhelper-compat (= 12)
+ debhelper-compat (= 13)
 Standards-Version: 4.6.1
 Homepage: https://wiki.linuxfoundation.org/lsb/start
 Vcs-Browser: https://salsa.debian.org/debian/lsb
