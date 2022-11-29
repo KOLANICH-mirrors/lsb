@@ -1,3 +1,10 @@
+lsb (11.6) unstable; urgency=medium
+
+  * Restore lsb-release, because it is convenient to use it from Python code.
+  * Created files to build Python wheels. Version is fetched from `git` tags using `setuptools_scm` and must be in sync with the versions mentioned in this file.
+
+ -- KOLANICH <KOLANICH@users.noreply.github.com>  Tue, 29 Nov 2022 00:00:00 +0000
+
 lsb (11.5) unstable; urgency=medium
 
   * Team upload.

@@ -36,6 +36,10 @@ License: BSD-3-clause
  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+Files: pyproject.toml
+Copyright: 2022, KOLANICH <KOLANICH@users.noreply.github.com>
+License: Public domain
+
 License: GPL-2
  This program is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public

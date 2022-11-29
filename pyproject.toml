@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.2.0", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lsb"
+readme = "ReadMe.md"
+description = "A standard core system that third-party applications written for Linux can depend upon."
+authors = [
+	{name="Chris Lawrence", email="lawrencc@debian.org"}, # 73, the first commits are his
+	{name="Didier Raboud", email="odyx@debian.org"}, # 219
+	{name="Dmitry Bogatov", email="KAction@debian.org"}, # 22
+	{name="Mark Hindley"}, # 17
+	{name="Steve Langasek", email="vorlon@debian.org"}, # 13, steve.langasek@ubuntu.com steve.langasek@canonical.com
+	{name="Colin Watson", email="cjwatson@ubuntu.com"}, # 10 cjwatson@canonical.com
+	{name="Adam Borowski"}, # 6
+	{name="Matthias Klose", email="doko@ubuntu.com"}, # 5
+	{name="Trek"}, # 5
+	{name="Jeff Licquia", email="licquia@debian.org"}, # 5
+]
+maintainers = [
+	{name = "Debian project"},
+]
+classifiers = [
+	"Development Status :: 4 - Beta",
+	"Environment :: Other Environment",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3 :: Only",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["lsb"]
+license = {text = "GPL-2.0-only"}
+requires-python = ">=3.4"
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://salsa.debian.org/debian/lsb"
+"GitHub Mirror" = "https://github.com/KOLANICH-mirrors/lsb.py"
+"Debian Package" = "https://packages.debian.org/ru/sid/lsb-release"
+
+[project.scripts]
+lsb_release = "lsb_release:main"
+
+[tool.setuptools]
+zip-safe = true
+py-modules = ["lsb_release", ]
+
+[tool.setuptools_scm]
+tag_regex = "debian/(?P<version>\\d+(?:\\.\\d+)+)"
+
+[tool.black]
+line-length = 100500
