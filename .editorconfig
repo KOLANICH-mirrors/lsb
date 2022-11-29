@@ -1,0 +1,20 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+end_of_line = lf
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[debian/changelog]
+indent_size = 2
+
+[debian/{control,copyright}]
+indent_size = 1
+
+[debian/rules]
+indent_style = tab
