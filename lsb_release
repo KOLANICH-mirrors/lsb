@@ -17,7 +17,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 import sys
 import os
 import re
@@ -25,26 +25,26 @@ import re
 import lsb_release
 
 def main():
-    parser = OptionParser()
-    parser.add_option('-v', '--version', dest='version', action='store_true',
+    parser = ArgumentParser()
+    parser.add_argument('-v', '--version', dest='version', action='store_true',
                       default=False,
                       help="show LSB modules this system supports")
-    parser.add_option('-i', '--id', dest='id', action='store_true',
+    parser.add_argument('-i', '--id', dest='id', action='store_true',
                       default=False,
                       help="show distributor ID")
-    parser.add_option('-d', '--description', dest='description',
+    parser.add_argument('-d', '--description', dest='description',
                       default=False, action='store_true',
                       help="show description of this distribution")
-    parser.add_option('-r', '--release', dest='release',
+    parser.add_argument('-r', '--release', dest='release',
                       default=False, action='store_true',
                       help="show release number of this distribution")
-    parser.add_option('-c', '--codename', dest='codename',
+    parser.add_argument('-c', '--codename', dest='codename',
                       default=False, action='store_true',
                       help="show code name of this distribution")
-    parser.add_option('-a', '--all', dest='all',
+    parser.add_argument('-a', '--all', dest='all',
                       default=False, action='store_true',
                       help="show all of the above information")
-    parser.add_option('-s', '--short', dest='short',
+    parser.add_argument('-s', '--short', dest='short',
                       action='store_true', default=False,
                       help="show requested information in short format")
     
