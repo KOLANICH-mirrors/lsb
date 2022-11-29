@@ -16,14 +16,18 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #    02110-1301 USA
 
-import sys
-import subprocess
+import csv
 import os
 import re
+import subprocess
+import sys
+import typing
 import warnings
-import csv
 
-def get_distro_info(origin='Debian'):
+StrDict = typing.Dict[str, str]
+
+
+def get_distro_info(origin: str = "Debian") -> None:
 
     try:
         csvfile = open('/usr/share/distro-info/%s.csv' % origin.lower())
@@ -47,7 +51,8 @@ def get_distro_info(origin='Debian'):
 # Populate default distro info
 get_distro_info()
 
-def lookup_codename(release, unknown=None):
+
+def lookup_codename(release: str, unknown: typing.Optional[str] = None) -> str:
     m = re.match(r'(\d+)\.(\d+)(r(\d+))?', release)
     if not m:
         return unknown
@@ -58,7 +63,8 @@ def lookup_codename(release, unknown=None):
         shortrelease = '%s' % m.group(1)
     return RELEASE_CODENAME_LOOKUP.get(shortrelease, unknown)
 
-def valid_lsb_versions(version, module):
+
+def valid_lsb_versions(version: str, module: str) -> typing.List[str]:
     # If a module is ever released that only appears in >= version, deal
     # with that here
     if version == '3.0':
@@ -118,13 +124,15 @@ except NameError:
     set = sets.Set
 
 # This is Debian-specific at present
-def check_modules_installed():
+
+
+def check_modules_installed() -> typing.List[typing.Any]:
     return []
 
 longnames = {'v' : 'version', 'o': 'origin', 'a': 'suite',
              'c' : 'component', 'l': 'label'}
 
-def parse_policy_line(data):
+def parse_policy_line(data: str) -> StrDict:
     retval = {}
     bits = data.split(',')
     for bit in bits:
@@ -135,7 +143,8 @@ def parse_policy_line(data):
                 retval[longnames[k]] = v
     return retval
 
-def release_index(x):
+
+def release_index(x: typing.List[typing.Union[str, StrDict]]) -> int:
     suite = x[1].get('suite')
     if suite:
         if suite in RELEASES_ORDER:
@@ -147,7 +156,8 @@ def release_index(x):
                 return 0
     return 0
 
-def compare_release(x, y):
+
+def compare_release(x: typing.List[typing.Union[str, StrDict]], y: typing.List[typing.Union[str, StrDict]]) -> int:
     warnings.warn('compare_release(x,y) is deprecated; please use the release_index(x) as key for sort() instead.', DeprecationWarning, stacklevel=2)
     suite_x_i = release_index(x)
     suite_y_i = release_index(y)
@@ -157,7 +167,8 @@ def compare_release(x, y):
     except TypeError:
         return (suite_x_i > suite_y_i) - (suite_x_i < suite_y_i)
 
-def parse_apt_policy():
+
+def parse_apt_policy() -> typing.List[typing.Tuple[int, StrDict]]:
     data = []
     
     C_env = os.environ.copy(); C_env['LC_ALL'] = 'C.UTF-8'
@@ -183,10 +194,8 @@ def parse_apt_policy():
 
     return data
 
-def guess_release_from_apt(origin='Debian', component='main',
-                           ignoresuites=('experimental'),
-                           label='Debian',
-                           alternate_olabels={'Debian Ports': ('ftp.ports.debian.org', 'ftp.debian-ports.org')}):
+
+def guess_release_from_apt(origin: str = "Debian", component: str = "main", ignoresuites: str = ("experimental"), label: str = "Debian", alternate_olabels: typing.Dict[str, typing.Tuple[str, str]] = {"Debian Ports": ("ftp.ports.debian.org", "ftp.debian-ports.org")}) -> None:
     releases = parse_apt_policy()
 
     if not releases:
@@ -216,7 +225,8 @@ def guess_release_from_apt(origin='Debian', component='main',
 
     return releases[0][1]
 
-def guess_debian_release():
+
+def guess_debian_release() -> StrDict:
     distinfo = {}
 
     distinfo['ID'] = 'Debian'
@@ -310,7 +320,7 @@ def guess_debian_release():
     return distinfo
 
 # Whatever is guessed above can be overridden in /usr/lib/os-release by derivatives
-def get_os_release():
+def get_os_release() -> StrDict:
     distinfo = {}
     os_release = os.environ.get('LSB_OS_RELEASE', '/usr/lib/os-release')
     if os.path.exists(os_release):
@@ -343,7 +353,8 @@ def get_os_release():
 
     return distinfo
 
-def get_distro_information():
+
+def get_distro_information() -> StrDict:
     lsbinfo = get_os_release()
     # OS is only used inside guess_debian_release anyway
     for key in ('ID', 'RELEASE', 'CODENAME', 'DESCRIPTION',):
